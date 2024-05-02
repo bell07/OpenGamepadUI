@@ -9,14 +9,16 @@ var launch_manager := load("res://core/global/launch_manager.tres") as LaunchMan
 var notification_manager := load("res://core/global/notification_manager.tres") as NotificationManager
 var settings_manager := load("res://core/global/settings_manager.tres") as SettingsManager
 var state_machine := load("res://assets/state/state_machines/gamepad_settings_state_machine.tres") as StateMachine
+var input_plumber := load("res://core/systems/input/input_plumber.tres") as InputPlumber
 
 var button_scene := load("res://core/ui/components/card_mapping_button.tscn") as PackedScene
 var axes_container_scene := load("res://core/ui/components/card_axes_mapping_container.tscn") as PackedScene
 var dropdown_scene := load("res://core/ui/components/dropdown.tscn") as PackedScene
+var gamepad: InputPlumber.CompositeDevice
 var library_item: LibraryItem
 var buttons: Dictionary = {}
 var axes_containers: Array[CardAxesMappingContainer] = []
-var logger := Log.get_logger("GamepadSettings", Log.LEVEL.INFO)
+var logger := Log.get_logger("GamepadSettings", Log.LEVEL.DEBUG)
 
 @onready var container := $%ButtonMappingContainer as Container
 @onready var mapping_focus_group := $%MappingFocusGroup as FocusGroup
@@ -72,13 +74,27 @@ func _ready() -> void:
 
 ## Called when the gamepad settings state is entered
 func _on_state_entered(_from: State) -> void:
-	#var gamepads := gamepad_manager.get_gamepad_paths()
-	# TODO: Configure the menu per-gamepad to support multiple gamepads
-	#if gamepads.size() == 0:
-		#return
-	#populate_mappings_for(gamepads[0])
-#
-	#library_item = null
+	# Read from the state to determine which gamepad is being configured
+	gamepad = null
+	if !gamepad_state.has_meta("dbus_path"):
+		logger.error("No gamepad was set to configure!")
+		return
+	var dbus_path := gamepad_state.get_meta("dbus_path") as String
+	logger.debug("Configuring gamepad: " + dbus_path)
+	
+	# Find the composite device to configure
+	for device: InputPlumber.CompositeDevice in input_plumber.composite_devices:
+		if device.dbus_path == dbus_path:
+			gamepad = device
+			break
+	if gamepad == null:
+		logger.error("Unable to find CompositeDevice with path: " + dbus_path)
+		return
+	
+	# Populate the menu with the source inputs for the given gamepad
+	populate_mappings_for(gamepad)
+
+	library_item = null
 	#profile = null
 	if gamepad_state.has_meta("item"):
 		library_item = gamepad_state.get_meta("item") as LibraryItem
@@ -105,8 +121,9 @@ func _on_state_entered(_from: State) -> void:
 
 
 ## Populates the button mappings for the given gamepad
-func populate_mappings_for(gamepad_path: String) -> void:
-	#var capabilities := gamepad_manager.get_gamepad_capabilities(gamepad_path)
+func populate_mappings_for(gamepad: InputPlumber.CompositeDevice) -> void:
+	var capabilities := gamepad.capabilities
+	logger.debug("Found capabilities for gamepad: " + str(capabilities))
 
 	# Delete any old buttons
 	for child in container.get_children():
@@ -126,7 +143,8 @@ func populate_mappings_for(gamepad_path: String) -> void:
 	var button_events: Array[EvdevKeyEvent] = []
 	var key_events: Array[EvdevKeyEvent] = []
 	var axes_events := AxesArray.new()
-	#for event in capabilities:
+	for capability: String in capabilities:
+		pass
 		#if event is EvdevKeyEvent:
 			#var code_name := event.to_input_device_event().get_code_name() as String
 			#if code_name.begins_with("BTN"):
