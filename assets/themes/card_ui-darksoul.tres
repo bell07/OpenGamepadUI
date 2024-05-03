@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=29 format=3 uid="uid://bhdlcd8rvccus"]
+[gd_resource type="Theme" load_steps=28 format=3 uid="uid://bhdlcd8rvccus"]
 
 [ext_resource type="StyleBox" uid="uid://c1kq6hxb4m0dj" path="res://assets/styles/dracula/current.tres" id="1_xbfkn"]
 [ext_resource type="Texture2D" uid="uid://b8m8g766k3kay" path="res://assets/styles/darksoul/highlight.tres" id="2_d6a4j"]
@@ -15,12 +15,10 @@
 [ext_resource type="StyleBox" uid="uid://cuedb05hnwyhu" path="res://assets/styles/darksoul/settings_menu_panel.tres" id="9_loi6v"]
 [ext_resource type="StyleBox" uid="uid://b7jn4lre7ah4x" path="res://assets/styles/darksoul/plugin_store_card_panel.tres" id="10_lu8vp"]
 [ext_resource type="StyleBox" uid="uid://br2w1fnanqkfa" path="res://assets/styles/dracula/quick_bar_panel.tres" id="13_g8s16"]
+[ext_resource type="StyleBox" uid="uid://c4wkalabs1n6g" path="res://assets/styles/darksoul/separator.tres" id="16_mjofd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s2sy6"]
 bg_color = Color(0.133333, 0.137255, 0.180392, 1)
-
-[sub_resource type="StyleBoxLine" id="StyleBoxLine_7mvpb"]
-color = Color(1, 1, 1, 0.25098)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4rycl"]
 bg_color = Color(0.0823529, 0.0862745, 0.105882, 1)
@@ -74,10 +72,6 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[sub_resource type="StyleBoxLine" id="StyleBoxLine_ls1is"]
-color = Color(1, 1, 1, 0.25098)
-vertical = true
-
 [resource]
 Button/colors/font_color = Color(0.972549, 0.972549, 0.94902, 1)
 Button/colors/font_disabled_color = Color(0.384314, 0.447059, 0.643137, 1)
@@ -109,7 +103,7 @@ General/colors/pink = Color(1, 0.47451, 0.776471, 1)
 General/colors/purple = Color(0.741176, 0.576471, 0.976471, 1)
 General/colors/red = Color(1, 0.333333, 0.333333, 1)
 General/colors/yellow = Color(0.945098, 0.980392, 0.54902, 1)
-HSeparator/styles/separator = SubResource("StyleBoxLine_7mvpb")
+HSeparator/styles/separator = ExtResource("16_mjofd")
 InsidePanel/base_type = &"Panel"
 InsidePanel/styles/panel = ExtResource("5_smg3e")
 LightPanel/base_type = &"Panel"
@@ -150,5 +144,5 @@ Toggle/colors/color = Color(0.913725, 0.0901961, 0.439216, 1)
 VScrollBar/styles/grabber = SubResource("StyleBoxFlat_ly0we")
 VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_4qwdc")
 VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_hby0t")
-VSeparator/styles/separator = SubResource("StyleBoxLine_ls1is")
+VSeparator/styles/separator = ExtResource("16_mjofd")
 metadata/name = "Dark Soul"

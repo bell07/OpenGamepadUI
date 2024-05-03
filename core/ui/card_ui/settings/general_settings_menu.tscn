@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dsgrw1grwef4m"]
+[gd_scene load_steps=18 format=3 uid="uid://dsgrw1grwef4m"]
 
 [ext_resource type="Script" path="res://core/ui/card_ui/settings/general_settings_menu.gd" id="1_if7xt"]
 [ext_resource type="PackedScene" uid="uid://bnhxravpuheh2" path="res://core/systems/updater/software_updater.tscn" id="2_ogwq4"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://b0cyl6fdqxevn" path="res://core/systems/input/scroller_joystick.tscn" id="10_06mt3"]
 [ext_resource type="Theme" uid="uid://ehplgpp70vxa" path="res://assets/themes/card_ui-dracula.tres" id="10_b386h"]
 [ext_resource type="Theme" uid="uid://bhdlcd8rvccus" path="res://assets/themes/card_ui-darksoul.tres" id="11_k3kye"]
+[ext_resource type="Theme" uid="uid://de64j20kxm1k1" path="res://assets/themes/card_ui-water-vapor.tres" id="13_2j54j"]
 
 [node name="GeneralSettings" type="ScrollContainer"]
 anchors_preset = 15
@@ -69,7 +70,6 @@ layout_mode = 2
 text = "Automatic Updates"
 separator_visible = false
 description = "Automatically download and apply updates in the background when they are available"
-button_pressed = false
 
 [node name="CheckUpdateButton" parent="MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("7_qenel")]
 unique_name_in_owner = true
@@ -133,6 +133,16 @@ text = "Dark Soul"
 
 [node name="ThemeSetter" parent="MarginContainer/VBoxContainer/ThemeButtonContainer/ThemeDarkSoulButton" instance=ExtResource("9_bci6g")]
 theme = ExtResource("11_k3kye")
+on_signal = "button_up"
+
+[node name="ThemeWaterVapor" parent="MarginContainer/VBoxContainer/ThemeButtonContainer" instance=ExtResource("7_qenel")]
+custom_minimum_size = Vector2(158, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Water Vapor"
+
+[node name="ThemeSetter" parent="MarginContainer/VBoxContainer/ThemeButtonContainer/ThemeWaterVapor" instance=ExtResource("9_bci6g")]
+theme = ExtResource("13_2j54j")
 on_signal = "button_up"
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
